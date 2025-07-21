@@ -1,12 +1,14 @@
 import com.cristhiansj.facts.NetflixPlans;
 import com.cristhiansj.models.users.CreateUserInfo;
 import com.cristhiansj.models.users.Datum;
+import com.cristhiansj.models.users.LoginCredentials;
 import com.cristhiansj.models.users.RegisterUserInfo;
 import com.cristhiansj.questions.GetUserQuestion;
 import com.cristhiansj.questions.GetUsersQuestion;
 import com.cristhiansj.questions.ResponseCode;
 import com.cristhiansj.tasks.*;
 import net.serenitybdd.junit.runners.SerenityRunner;
+import net.serenitybdd.rest.SerenityRest;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.rest.abilities.CallAnApi;
 import net.serenitybdd.screenplay.rest.interactions.Delete;
@@ -171,8 +173,24 @@ public class SerenityInitialTest {
 
     }
 
+    @Test
+    public void loginSuccessfulTest() {
+        Actor ivan = Actor.named("Ivan the implementator")
+                .whoCan(CallAnApi.at(restURLApi));
 
+        LoginCredentials loginUserInfo = new LoginCredentials();
 
+        loginUserInfo.setEmail("eve.holt@reqres.in");
+        loginUserInfo.setPassword("cityslicka");
+
+        ivan.attemptsTo(
+                LoginUser.withCrededential(loginUserInfo)
+        );
+        ivan.should(
+                seeThat("el código de respuesta", ResponseCode.was(), equalTo(200)),
+                seeThat("el body response trae el token", actor -> SerenityRest.lastResponse().jsonPath().getString("token"), notNullValue())
+        );
+    }
 
 
     @Test
