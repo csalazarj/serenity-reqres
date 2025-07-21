@@ -1,19 +1,14 @@
 import com.cristhiansj.facts.NetflixPlans;
+import com.cristhiansj.models.users.CreateUserInfo;
 import com.cristhiansj.models.users.Datum;
 import com.cristhiansj.models.users.RegisterUserInfo;
 import com.cristhiansj.questions.GetUserQuestion;
 import com.cristhiansj.questions.GetUsersQuestion;
 import com.cristhiansj.questions.ResponseCode;
-import com.cristhiansj.tasks.GetSingleUser;
-import com.cristhiansj.tasks.GetUsers;
-import com.cristhiansj.tasks.RegisterUser;
-import com.cristhiansj.tasks.UpdateUser;
+import com.cristhiansj.tasks.*;
 import net.serenitybdd.junit.runners.SerenityRunner;
-import net.serenitybdd.rest.SerenityRest;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.rest.abilities.CallAnApi;
-import net.thucydides.core.screenshots.ScreenshotDigest;
-import org.hibernate.sql.Update;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -28,7 +23,30 @@ public class SerenityInitialTest {
     private static final String restURLApi = "http://localhost:5000/api";
 
     @Test
-    public void getUsers() {
+    public void getSingleUserTest() {
+        Actor paula = Actor.named("Paula the developer")
+                .whoCan(CallAnApi.at(restURLApi));
+
+        paula.attemptsTo(
+                GetSingleUser.withId(1)
+        );
+        paula.should(
+                seeThat("el código de respuesta", ResponseCode.was(), equalTo(200))
+        );
+
+        Datum user = new GetUserQuestion().answeredBy(paula).getData();
+        paula.should(
+                seeThat("usuario no es nulo", act -> user, notNullValue())
+        );
+
+        paula.should(
+                seeThat("el email del usuario", act -> user.getEmail(), equalTo("george.bluth@reqres.in")),
+                seeThat("el avatar del usuario", act -> user.getAvatar(), equalTo("https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg"))
+        );
+    }
+
+    @Test
+    public void getUsersTest() {
 
         Actor cristhian = Actor.named("Cristhian the QA")
                 .whoCan(CallAnApi.at(restURLApi));
@@ -55,29 +73,6 @@ public class SerenityInitialTest {
         );
 
 
-    }
-
-    @Test
-    public void getSingleUser() {
-        Actor paula = Actor.named("Paula the developer")
-                .whoCan(CallAnApi.at(restURLApi));
-
-        paula.attemptsTo(
-                GetSingleUser.withId(1)
-        );
-        paula.should(
-                seeThat("el código de respuesta", ResponseCode.was(), equalTo(200))
-        );
-
-        Datum user = new GetUserQuestion().answeredBy(paula).getData();
-        paula.should(
-                seeThat("usuario no es nulo", act -> user, notNullValue())
-        );
-
-        paula.should(
-                seeThat("el email del usuario", act -> user.getEmail(), equalTo("george.bluth@reqres.in")),
-                seeThat("el avatar del usuario", act -> user.getAvatar(), equalTo("https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg"))
-        );
     }
 
     @Test
@@ -110,7 +105,6 @@ public class SerenityInitialTest {
 
     }
 
-
     @Test
     public void updateUsersTest() {
 
@@ -129,6 +123,37 @@ public class SerenityInitialTest {
                 seeThat("el código de respuesta", ResponseCode.was(), equalTo(200))
         );
     }
+
+    @Test
+    public void getSingleUserNotFoundTest() {
+        Actor paula = Actor.named("Paula the developer")
+                .whoCan(CallAnApi.at(restURLApi));
+
+        paula.attemptsTo(
+                GetSingleUser.withId(485)
+        );
+        paula.should(
+                seeThat("el código de respuesta", ResponseCode.was(), equalTo(404))
+        );
+
+    }
+
+    @Test
+    public void createUserTest() {
+        Actor julian = Actor.named("Julian the QA")
+                .whoCan(CallAnApi.at(restURLApi));
+
+
+        CreateUserInfo createUserInfo = new CreateUserInfo();
+
+        createUserInfo.setName("Margarita");
+        createUserInfo.setJob("Analist");
+
+        julian.attemptsTo(
+                CreateUser.withInfo(createUserInfo)
+        );
+    }
+
 
     @Test
     public void factTest() {
