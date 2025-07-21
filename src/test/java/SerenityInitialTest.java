@@ -1,8 +1,10 @@
 import com.cristhiansj.facts.NetflixPlans;
 import com.cristhiansj.models.users.Datum;
 import com.cristhiansj.models.users.RegisterUserInfo;
+import com.cristhiansj.questions.GetUserQuestion;
 import com.cristhiansj.questions.GetUsersQuestion;
 import com.cristhiansj.questions.ResponseCode;
+import com.cristhiansj.tasks.GetSingleUser;
 import com.cristhiansj.tasks.GetUsers;
 import com.cristhiansj.tasks.RegisterUser;
 import com.cristhiansj.tasks.UpdateUser;
@@ -53,6 +55,29 @@ public class SerenityInitialTest {
         );
 
 
+    }
+
+    @Test
+    public void getSingleUser() {
+        Actor paula = Actor.named("Paula the developer")
+                .whoCan(CallAnApi.at(restURLApi));
+
+        paula.attemptsTo(
+                GetSingleUser.withId(1)
+        );
+        paula.should(
+                seeThat("el código de respuesta", ResponseCode.was(), equalTo(200))
+        );
+
+        Datum user = new GetUserQuestion().answeredBy(paula).getData();
+        paula.should(
+                seeThat("usuario no es nulo", act -> user, notNullValue())
+        );
+
+        paula.should(
+                seeThat("el email del usuario", act -> user.getEmail(), equalTo("george.bluth@reqres.in")),
+                seeThat("el avatar del usuario", act -> user.getAvatar(), equalTo("https://s3.amazonaws.com/uifaces/faces/twitter/calebogden/128.jpg"))
+        );
     }
 
     @Test

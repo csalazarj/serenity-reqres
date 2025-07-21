@@ -9,9 +9,6 @@ public class GetUsersQuestion implements Question {
 
     @Override
     public Users answeredBy(Actor actor) {
-
         return SerenityRest.lastResponse().as(Users.class);
-
-
     }
 }
