@@ -9,6 +9,7 @@ import com.cristhiansj.tasks.*;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.rest.abilities.CallAnApi;
+import net.serenitybdd.screenplay.rest.interactions.Delete;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -153,6 +154,25 @@ public class SerenityInitialTest {
                 CreateUser.withInfo(createUserInfo)
         );
     }
+
+    @Test
+    public void deleteUserTest() {
+
+        Actor erika = Actor.named("Erika Infra")
+                .whoCan(CallAnApi.at(restURLApi));
+
+        erika.attemptsTo(
+                DeleteUser.withId(1)
+        );
+
+        erika.should(
+                seeThat("el código de respuesta", ResponseCode.was(), equalTo(204))
+        );
+
+    }
+
+
+
 
 
     @Test
