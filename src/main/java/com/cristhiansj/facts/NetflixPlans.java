@@ -1,9 +1,10 @@
 package com.cristhiansj.facts;
 
+import com.cristhiansj.interactions.Get;
 import net.serenitybdd.rest.SerenityRest;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.facts.Fact;
-import net.serenitybdd.screenplay.rest.interactions.Get;
+
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +29,7 @@ public class NetflixPlans implements Fact {
         plansInfo = plans.toString();
     }
 
+    @Override
     public String toString() {
         return "Los planes son " + plansInfo;
     }
