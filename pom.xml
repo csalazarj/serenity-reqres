@@ -1,53 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.cristhiansj</groupId>
-    <artifactId>serenitybddrest</artifactId>
+    <groupId>com.testautomation.mesaj</groupId>
+    <artifactId>serenitybddrestinspanishtraining</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <name>serenitybddrestinspanishtraining</name>
+
+    <repositories>
+        <repository>
+            <id>maven-central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+    </repositories>
+
     <properties>
-        <java.version>19</java.version>
+        <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <serenity.version>4.2.34</serenity.version>
-        <serenity.maven.version>4.2.34</serenity.maven.version>
+        <serenity.version>3.6.21</serenity.version>
+        <serenity.maven.version>3.6.21</serenity.maven.version>
         <encoding>UTF-8</encoding>
+
         <tags></tags>
         <parallel.tests>4</parallel.tests>
+
+        <hibernate.version>5.2.10.Final</hibernate.version>
     </properties>
 
     <dependencies>
-        <!-- Hibernate 6.4 con soporte Jakarta -->
         <dependency>
-            <groupId>org.hibernate.orm</groupId>
+            <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>6.4.4.Final</version>
+            <version>5.4.1.Final</version>
         </dependency>
 
-        <!-- Conector JDBC MySQL actualizado -->
         <dependency>
-            <groupId>com.mysql</groupId>
-            <artifactId>mysql-connector-j</artifactId>
-            <version>8.4.0</version>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>5.4.1.Final</version>
         </dependency>
 
-        <!-- Logging actualizado -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.15</version>
+            <scope>provided</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>2.0.13</version>
+            <version>1.7.7</version>
         </dependency>
-
-        <!-- Guava -->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>32.1.3-jre</version>
+            <version>23.6-jre</version>
         </dependency>
-
-        <!-- Serenity Core & módulos -->
         <dependency>
             <groupId>net.serenity-bdd</groupId>
             <artifactId>serenity-core</artifactId>
@@ -68,47 +80,40 @@
             <artifactId>serenity-screenplay-rest</artifactId>
             <version>${serenity.version}</version>
         </dependency>
+
         <dependency>
             <groupId>net.serenity-bdd</groupId>
             <artifactId>serenity-ensure</artifactId>
             <version>${serenity.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.serenity-bdd</groupId>
-            <artifactId>serenity-cucumber6</artifactId>
-            <version>2.6.0</version>
+            <scope>test</scope>
         </dependency>
 
-        <!-- Testing Frameworks -->
         <dependency>
-            <groupId>org.junit.vintage</groupId>
-            <artifactId>junit-vintage-engine</artifactId>
-            <version>5.10.0</version>
+            <groupId>net.serenity-bdd</groupId>
+            <artifactId>serenity-cucumber</artifactId>
+            <version>${serenity.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.24.2</version>
+            <version>3.6.2</version>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest</artifactId>
-            <version>2.2</version>
+            <artifactId>hamcrest-all</artifactId>
+            <version>1.3</version>
         </dependency>
-
-        <!-- Lombok actualizado -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.30</version>
+            <version>1.18.10</version>
             <scope>provided</scope>
-        </dependency>
-
-        <!-- Serenity Reporte compactado -->
-        <dependency>
-            <groupId>net.serenity-bdd</groupId>
-            <artifactId>serenity-single-page-report</artifactId>
-            <version>${serenity.version}</version>
         </dependency>
     </dependencies>
 
@@ -116,49 +121,82 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
-                <configuration>
-                    <release>17</release>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.2.5</version>
+                <version>2.20</version>
                 <configuration>
-                    <useModulePath>false</useModulePath>
+                    <argLine>-Xmx1024m -XX:MaxPermSize=512m</argLine>
+                    <skip>true</skip>
+                    <skipTests>true</skipTests>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.2.5</version>
+                <version>2.18.1</version>
                 <configuration>
                     <includes>
                         <include>**/*Test.java</include>
                         <include>**/features/**/*.java</include>
                         <include>**/*Test*.java</include>
                     </includes>
+                    <systemPropertyVariables>
+                        <restapi.baseurl>${restapi.baseurl}</restapi.baseurl>
+                    </systemPropertyVariables>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
-
             <plugin>
                 <groupId>net.serenity-bdd.maven.plugins</groupId>
                 <artifactId>serenity-maven-plugin</artifactId>
                 <version>${serenity.maven.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.serenity-bdd</groupId>
+                        <artifactId>serenity-core</artifactId>
+                        <version>${serenity.version}</version>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <id>serenity-reports</id>
                         <phase>post-integration-test</phase>
                         <goals>
                             <goal>aggregate</goal>
+                            <goal>reports</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <restapi.baseurl>http://localhost:5000/api</restapi.baseurl>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <restapi.baseurl>https://reqres.in/api</restapi.baseurl>
+            </properties>
+        </profile>
+    </profiles>
 </project>
