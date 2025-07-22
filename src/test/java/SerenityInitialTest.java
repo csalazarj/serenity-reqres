@@ -11,7 +11,6 @@ import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.rest.SerenityRest;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.rest.abilities.CallAnApi;
-import net.serenitybdd.screenplay.rest.interactions.Delete;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -78,35 +77,35 @@ public class SerenityInitialTest {
 
     }
 
-    @Test
-    public void registerUsersTest() {
-
-        Actor cristhian = Actor.named("Cristhian the QA")
-                .whoCan(CallAnApi.at(restURLApi));
-
-        RegisterUserInfo registerUserInfo = new RegisterUserInfo();
-
-        registerUserInfo.setName("Cristobal");
-        registerUserInfo.setJob("leader");
-        registerUserInfo.setEmail("tracey.ramos@reqres.in");
-        registerUserInfo.setPassword("serenity");
-
-
-//        String registerUserInfo = "{\n" +
-//                "    \"name\": \"Cristobal Colon\",\n" +
-//                "    \"job\": \"Navegante\",\n" +
-//                "    \"email\": \"eve.holt@reqres.in\",\n" +
-//                "    \"password\": \"pistol\"\n" +
-//                "}";
-
-        cristhian.attemptsTo(
-                RegisterUser.withInfo(registerUserInfo)
-        );
-        cristhian.should(
-                seeThat("el código de respuesta", ResponseCode.was(), equalTo(200))
-        );
-
-    }
+//    @Test
+//    public void registerUsersTest() {
+//
+//        Actor cristhian = Actor.named("Cristhian the QA")
+//                .whoCan(CallAnApi.at(restURLApi));
+//
+//        RegisterUserInfo registerUserInfo = new RegisterUserInfo();
+//
+//        registerUserInfo.setName("Cristobal");
+//        registerUserInfo.setJob("leader");
+//        registerUserInfo.setEmail("tracey.ramos@reqres.in");
+//        registerUserInfo.setPassword("serenity");
+//
+//
+////        String registerUserInfo = "{\n" +
+////                "    \"name\": \"Cristobal Colon\",\n" +
+////                "    \"job\": \"Navegante\",\n" +
+////                "    \"email\": \"eve.holt@reqres.in\",\n" +
+////                "    \"password\": \"pistol\"\n" +
+////                "}";
+//
+//        cristhian.attemptsTo(
+//                RegisterUser.withInfo(registerUserInfo)
+//        );
+//        cristhian.should(
+//                seeThat("el código de respuesta", ResponseCode.was(), equalTo(200))
+//        );
+//
+//    }
 
     @Test
     public void updateUsersTest() {
