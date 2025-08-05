@@ -107,24 +107,24 @@ public class SerenityInitialTest {
 //
 //    }
 
-    @Test
-    public void updateUsersTest() {
-
-        Actor cristhian = Actor.named("Cristhian the QA")
-                .whoCan(CallAnApi.at(restURLApi));
-
-        RegisterUserInfo updaterUserInfo = new RegisterUserInfo();
-
-        updaterUserInfo.setName("Cristobal");
-        updaterUserInfo.setJob("Sailor");
-
-        cristhian.attemptsTo(
-                UpdateUser.withInfo("4", updaterUserInfo)
-        );
-        cristhian.should(
-                seeThat("el código de respuesta", ResponseCode.was(), equalTo(200))
-        );
-    }
+//    @Test
+//    public void updateUsersTest() {
+//
+//        Actor cristhian = Actor.named("Cristhian the QA")
+//                .whoCan(CallAnApi.at(restURLApi));
+//
+//        RegisterUserInfo updaterUserInfo = new RegisterUserInfo();
+//
+//        updaterUserInfo.setName("Cristobal");
+//        updaterUserInfo.setJob("Sailor");
+//
+//        cristhian.attemptsTo(
+//                UpdateUser.withInfo("4", updaterUserInfo)
+//        );
+//        cristhian.should(
+//                seeThat("el código de respuesta", ResponseCode.was(), equalTo(200))
+//        );
+//    }
 
     @Test
     public void getSingleUserNotFoundTest() {

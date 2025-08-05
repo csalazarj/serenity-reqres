@@ -20,8 +20,8 @@ public class RegisterUserStepDefinitions {
     RegisterUserInfo registerUserInfo;
 
 
-    @Given("^Julian es un cliente que quiere poder administrar sus productos bancarios$")
-    public void julianEsUnClienteQueQuierePoderAdministrarSusProductosBancarios() {
+    @Given("^Cristhian es un cliente que quiere poder administrar sus productos bancarios$")
+    public void cristhianEsUnClienteQueQuierePoderAdministrarSusProductosBancarios() {
 
         cristhian = Actor.named("Cristhian the QA").whoCan(CallAnApi.at(restURLApi));
     }
@@ -29,15 +29,23 @@ public class RegisterUserStepDefinitions {
     @When("^el envia la informacion requerida para el registro$")
     public void elEnviaLaInformacionRequeridaParaElRegistro() {
 
-        registerUserInfo = new RegisterUserInfo();
-
-        registerUserInfo.setName("Cristobal");
-        registerUserInfo.setJob("leader");
-        registerUserInfo.setEmail("tracey.ramos@reqres.in");
-        registerUserInfo.setPassword("serenity");
+//        registerUserInfo = new RegisterUserInfo();
+//
+//        registerUserInfo.setName("Cristobal");
+//        registerUserInfo.setJob("leader");
+//        registerUserInfo.setEmail("tracey.ramos@reqres.in");
+//        registerUserInfo.setPassword("serenity");
+//
+//        cristhian.attemptsTo(
+//                RegisterUser.withInfo(registerUserInfo)
+//        );
 
         cristhian.attemptsTo(
-                RegisterUser.withInfo(registerUserInfo)
+                RegisterUser
+                        .withName("Cristobal")
+                        .andEmail("tracey.ramos@reqres.in")
+                        .andPassword("tracey.ramos@reqres.in")
+                        .andJob("leader")
         );
     }
 
