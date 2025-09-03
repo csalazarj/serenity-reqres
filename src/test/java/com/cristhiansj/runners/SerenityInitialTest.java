@@ -1,8 +1,9 @@
+package com.cristhiansj.runners;
+
 import com.cristhiansj.facts.NetflixPlans;
 import com.cristhiansj.models.users.CreateUserInfo;
 import com.cristhiansj.models.users.Datum;
 import com.cristhiansj.models.users.LoginCredentials;
-import com.cristhiansj.models.users.RegisterUserInfo;
 import com.cristhiansj.questions.GetUserQuestion;
 import com.cristhiansj.questions.GetUsersQuestion;
 import com.cristhiansj.questions.ResponseCode;

@@ -1,6 +1,7 @@
 package com.cristhiansj.stepdefinitions;
 
 import com.cristhiansj.models.Account;
+import com.cristhiansj.models.Money;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -11,7 +12,7 @@ public class WithdrawStepDefinitions {
 
     }
     @Given("^en su cuenta tiene un saldo disponible de (\\d+\\.\\d+)$")
-    public void en_su_cuenta_tiene_un_saldo_disponible_de(Integer pesos) {
+    public void en_su_cuenta_tiene_un_saldo_disponible_de(Money pesos) {
         Account myAccount = new Account();
         myAccount.deposit(pesos);
 

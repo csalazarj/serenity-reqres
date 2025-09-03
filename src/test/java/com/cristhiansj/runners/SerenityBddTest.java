@@ -1,3 +1,5 @@
+package com.cristhiansj.runners;
+
 import com.cristhiansj.abilities.InteractWithDb;
 import com.cristhiansj.database.DatabaseConnectionInfo;
 import com.cristhiansj.database.DatabaseType;

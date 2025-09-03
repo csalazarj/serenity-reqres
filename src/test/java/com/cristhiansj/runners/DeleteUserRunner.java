@@ -1,3 +1,5 @@
+package com.cristhiansj.runners;
+
 import io.cucumber.junit.CucumberOptions;
 import net.serenitybdd.cucumber.CucumberWithSerenity;
 import org.junit.runner.RunWith;
@@ -5,7 +7,8 @@ import org.junit.runner.RunWith;
 @RunWith(CucumberWithSerenity.class)
 @CucumberOptions(
         features = "src/test/resources/features/eliminar_usuario.feature",
-        glue = "com.cristhiansj.stepdefinitions"
+        glue = "com.cristhiansj",
+        plugin = {"pretty"}
 )
 public class DeleteUserRunner {
 }
